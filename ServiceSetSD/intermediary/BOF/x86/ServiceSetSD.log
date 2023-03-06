@@ -1,0 +1,14 @@
+﻿  Vcpkg is unable to link because we cannot decide between Release and Debug libraries. Please define the property VcpkgConfiguration to be 'Release' or 'Debug' (currently 'BOF').
+  用于 x86 的 Microsoft (R) C/C++ 优化编译器 19.33.31630 版
+  版权所有(C) Microsoft Corporation。保留所有权利。
+  cl /c /I"D:\ProgramData\vcpkg\scripts\buildsystems\msbuild\..\..\..\installed\x86-windows\include" /Oy- /D BOF /GS- /Fo"intermediary\BOF\x86\\" /external:W1 /TC /analyze- /c /Fo"intermediary\BOF\x86\source" Source.c
+cl : 命令行 warning D9025: 正在重写“/Fointermediary\BOF\x86\”(用“/Fointermediary\BOF\x86\source”)
+  Source.c
+E:\C++\MyProject\ServiceSetSSD\ServiceSetSD\bofdefs.h(198): warning C4005: “ZeroMemory”: 宏重定义
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\minwinbase.h(39): note: 参见“ZeroMemory”的前一个定义
+  E:\C++\MyProject\ServiceSetSSD\ServiceSetSD\intermediary\BOF\x86\source.obj
+  复制了 1 个文件
+  enumerating sections...
+  found debug section.. zeroing it...
+  closing stream...
+  done!

